@@ -392,8 +392,9 @@ message TrackInfo
     string name = 3;
     int32  channels = 4;
     int32  buses = 5;
-    TrackType type = 6;
-    repeated ProcessorIdentifier processors = 7;
+    int32  thread = 6;
+    TrackType type = 7;
+    repeated ProcessorIdentifier processors = 8;
 }
 
 message TrackInfoList
@@ -548,12 +549,14 @@ message CreateTrackRequest
 {
     string name = 1;
     int32  channels = 2;
+    OptionalIntValue thread = 3;
 }
 
 message CreateMultibusTrackRequest
 {
     string name = 1;
     int32  buses = 2;
+    OptionalIntValue thread = 3;
 }
 
 message CreatePreTrackRequest
@@ -839,9 +842,10 @@ message TrackState
     string                  label = 2;
     int32                   channels = 3;
     int32                   buses = 4;
-    TrackType               type = 5;
-    ProcessorState          track_state = 6;
-    repeated PluginClass    processors = 7;
+    int32                   thread = 5
+    TrackType               type = 6;
+    ProcessorState          track_state = 7;
+    repeated PluginClass    processors = 8;
 }
 
 message SessionState
