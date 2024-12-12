@@ -36,8 +36,8 @@ service TimingController
     rpc SetTimingsEnabled (GenericBoolValue) returns (GenericVoidValue) {}
 
     rpc GetEngineTimings (GenericVoidValue) returns (CpuTimings) {}
-    rpc GetTrackTimings (TrackIdentifier) returns (CpuTimings) {}
-    rpc GetProcessorTimings (ProcessorIdentifier) returns (CpuTimings) {}
+    rpc GetTrackTimings (TrackIdentifier) returns (Timings) {}
+    rpc GetProcessorTimings (ProcessorIdentifier) returns (Timings) {}
 
     rpc ResetAllTimings (GenericVoidValue) returns (GenericVoidValue) {}
     rpc ResetTrackTimings (TrackIdentifier) returns (GenericVoidValue) {}
@@ -335,11 +335,17 @@ message TimeSignature
     int32 denominator = 2;
 }
 
-message CpuTimings
+message Timings
 {
     float average = 1;
     float min = 2;
     float max = 3;
+}
+
+message CpuTimings
+{
+    Timings main = 1;
+    repeated Timings threads = 2;
 }
 
 message NoteOnRequest
@@ -842,7 +848,7 @@ message TrackState
     string                  label = 2;
     int32                   channels = 3;
     int32                   buses = 4;
-    int32                   thread = 5
+    int32                   thread = 5;
     TrackType               type = 6;
     ProcessorState          track_state = 7;
     repeated PluginClass    processors = 8;
