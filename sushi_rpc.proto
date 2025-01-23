@@ -85,7 +85,7 @@ service ProgramController
     rpc GetProcessorCurrentProgram (ProcessorIdentifier) returns (ProgramIdentifierResponse) {}
     rpc GetProcessorCurrentProgramName (ProcessorIdentifier) returns (StringResponse) {}
     rpc GetProcessorProgramName (ProcessorProgramIdentifier) returns (StringResponse) {}
-    rpc GetProcessorPrograms (ProcessorIdentifier) returns (ProgramInfoList) {}
+    rpc GetProcessorPrograms (ProcessorIdentifier) returns (ProgramInfoListResponse) {}
 
     rpc SetProcessorProgram (ProcessorProgramSetRequest) returns (CommandResponse) {}
 }
@@ -286,7 +286,7 @@ message OptionalIntValue
 
 message CommandStatus
 {
-    enum Type
+    enum Status
     {
         DUMMY = 0;
         SUCCESS = 1;
@@ -297,7 +297,7 @@ message CommandStatus
         OUT_OF_RANGE = 6;
         INVALID_ARGUMENTS = 7;
     }
-    Type type = 1;
+    Status status = 1;
 }
 
 message CommandResponse
