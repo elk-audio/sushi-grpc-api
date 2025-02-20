@@ -36,8 +36,8 @@ service TimingController
     rpc SetTimingsEnabled (GenericBoolValue) returns (CommandResponse) {}
 
     rpc GetEngineTimings (GenericVoidValue) returns (CpuTimings) {}
-    rpc GetTrackTimings (TrackIdentifier) returns (CpuTimingResponse) {}
-    rpc GetProcessorTimings (ProcessorIdentifier) returns (CpuTimingResponse) {}
+    rpc GetTrackTimings (TrackIdentifier) returns (TimingResponse) {}
+    rpc GetProcessorTimings (ProcessorIdentifier) returns (TimingResponse) {}
 
     rpc ResetAllTimings (GenericVoidValue) returns (CommandResponse) {}
     rpc ResetTrackTimings (TrackIdentifier) returns (CommandResponse) {}
@@ -412,17 +412,23 @@ message TimeSignature
     int32 denominator = 2;
 }
 
-message CpuTimings
+message Timings
 {
     float average = 1;
     float min = 2;
     float max = 3;
 }
 
-message CpuTimingResponse
+message CpuTimings
+{
+    Timings main = 1;
+    repeated Timings threads = 2;
+}
+
+message TimingResponse
 {
     CommandStatus status = 1;
-    CpuTimings timings = 2;
+    Timings timings = 2;
 }
 
 message NoteOnRequest
@@ -475,8 +481,9 @@ message TrackInfo
     string name = 3;
     int32  channels = 4;
     int32  buses = 5;
-    TrackType type = 6;
-    repeated ProcessorIdentifier processors = 7;
+    int32  thread = 6;
+    TrackType type = 7;
+    repeated ProcessorIdentifier processors = 8;
 }
 
 message TrackInfoResponse
@@ -691,12 +698,14 @@ message CreateTrackRequest
 {
     string name = 1;
     int32  channels = 2;
+    OptionalIntValue thread = 3;
 }
 
 message CreateMultibusTrackRequest
 {
     string name = 1;
     int32  buses = 2;
+    OptionalIntValue thread = 3;
 }
 
 message CreatePreTrackRequest
@@ -1012,9 +1021,10 @@ message TrackState
     string                  label = 2;
     int32                   channels = 3;
     int32                   buses = 4;
-    TrackType               type = 5;
-    ProcessorState          track_state = 6;
-    repeated PluginClass    processors = 7;
+    int32                   thread = 5;
+    TrackType               type = 6;
+    ProcessorState          track_state = 7;
+    repeated PluginClass    processors = 8;
 }
 
 message SessionState
