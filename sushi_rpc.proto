@@ -10,6 +10,7 @@ package sushi_rpc;
 service SystemController
 {
     rpc GetSushiVersion (GenericVoidValue) returns (GenericStringValue) {}
+    rpc GetSushiApiVersion (GenericVoidValue) returns (GenericStringValue) {}
     rpc GetBuildInfo (GenericVoidValue) returns (SushiBuildInfo) {}
 
     rpc GetInputAudioChannelCount (GenericVoidValue) returns (GenericIntValue) {}

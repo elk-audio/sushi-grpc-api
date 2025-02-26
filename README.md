@@ -10,5 +10,5 @@ This repository is included as submodule by all the projects that uses Sushi's g
 ## License
 Sushi is licensed under Affero General Public License (“AGPLv3”). See [LICENSE](LICENSE.md) document for the full details of the license. For contributing code to Sushi, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
-Copyright 2017-2022 Modern Ancient Instruments Networked AB, dba Elk, Stockholm, Sweden.
+Copyright 2017-2025 Modern Ancient Instruments Networked AB, dba Elk, Stockholm, Sweden.
 
