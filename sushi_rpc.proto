@@ -1,6 +1,6 @@
 /** gRPC definitions for external control of sushi
  *
- * @copyright 2018 - 2022 Modern Ancient Instruments Networked AB, dba Elk, Stockholm
+ * @copyright 2018 - 2025 Elk Audio AB, Stockholm
  */
 
 syntax = "proto3";
@@ -24,89 +24,89 @@ service TransportController
     rpc GetTimeSignature (GenericVoidValue) returns (TimeSignature) {}
     rpc GetTempo (GenericVoidValue) returns (GenericFloatValue) {}
 
-    rpc SetTempo (GenericFloatValue) returns (GenericVoidValue) {}
-    rpc SetPlayingMode (PlayingMode) returns (GenericVoidValue) {}
-    rpc SetSyncMode (SyncMode) returns (GenericVoidValue) {}
-    rpc SetTimeSignature (TimeSignature) returns (GenericVoidValue) {}
+    rpc SetTempo (GenericFloatValue) returns (CommandResponse) {}
+    rpc SetPlayingMode (PlayingMode) returns (CommandResponse) {}
+    rpc SetSyncMode (SyncMode) returns (CommandResponse) {}
+    rpc SetTimeSignature (TimeSignature) returns (CommandResponse) {}
 }
 
 service TimingController
 {
     rpc GetTimingsEnabled (GenericVoidValue) returns (GenericBoolValue) {}
-    rpc SetTimingsEnabled (GenericBoolValue) returns (GenericVoidValue) {}
+    rpc SetTimingsEnabled (GenericBoolValue) returns (CommandResponse) {}
 
     rpc GetEngineTimings (GenericVoidValue) returns (CpuTimings) {}
-    rpc GetTrackTimings (TrackIdentifier) returns (Timings) {}
-    rpc GetProcessorTimings (ProcessorIdentifier) returns (Timings) {}
+    rpc GetTrackTimings (TrackIdentifier) returns (TimingResponse) {}
+    rpc GetProcessorTimings (ProcessorIdentifier) returns (TimingResponse) {}
 
-    rpc ResetAllTimings (GenericVoidValue) returns (GenericVoidValue) {}
-    rpc ResetTrackTimings (TrackIdentifier) returns (GenericVoidValue) {}
-    rpc ResetProcessorTimings (ProcessorIdentifier) returns (GenericVoidValue) {}
+    rpc ResetAllTimings (GenericVoidValue) returns (CommandResponse) {}
+    rpc ResetTrackTimings (TrackIdentifier) returns (CommandResponse) {}
+    rpc ResetProcessorTimings (ProcessorIdentifier) returns (CommandResponse) {}
 }
 
 service KeyboardController
 {
-    rpc SendNoteOn (NoteOnRequest) returns (GenericVoidValue) {}
-    rpc SendNoteOff (NoteOffRequest) returns (GenericVoidValue) {}
-    rpc SendNoteAftertouch (NoteAftertouchRequest) returns (GenericVoidValue) {}
-    rpc SendAftertouch (NoteModulationRequest) returns (GenericVoidValue) {}
-    rpc SendPitchBend (NoteModulationRequest) returns (GenericVoidValue) {}
-    rpc SendModulation (NoteModulationRequest) returns (GenericVoidValue) {}
+    rpc SendNoteOn (NoteOnRequest) returns (CommandResponse) {}
+    rpc SendNoteOff (NoteOffRequest) returns (CommandResponse) {}
+    rpc SendNoteAftertouch (NoteAftertouchRequest) returns (CommandResponse) {}
+    rpc SendAftertouch (NoteModulationRequest) returns (CommandResponse) {}
+    rpc SendPitchBend (NoteModulationRequest) returns (CommandResponse) {}
+    rpc SendModulation (NoteModulationRequest) returns (CommandResponse) {}
 }
 
 service AudioGraphController
 {
     rpc GetAllProcessors (GenericVoidValue) returns (ProcessorInfoList) {}
     rpc GetAllTracks (GenericVoidValue) returns (TrackInfoList) {}
-    rpc GetTrackId (GenericStringValue) returns (TrackIdentifier) {}
-    rpc GetTrackInfo (TrackIdentifier) returns (TrackInfo) {}
-    rpc GetTrackProcessors (TrackIdentifier) returns (ProcessorInfoList) {}
-    rpc GetProcessorId (GenericStringValue) returns (ProcessorIdentifier) {}
-    rpc GetProcessorInfo (ProcessorIdentifier) returns (ProcessorInfo) {}
-    rpc GetProcessorBypassState (ProcessorIdentifier) returns (GenericBoolValue) {}
-    rpc GetProcessorState (ProcessorIdentifier) returns (ProcessorState) {}
+    rpc GetTrackId (GenericStringValue) returns (TrackIdentifierResponse) {}
+    rpc GetTrackInfo (TrackIdentifier) returns (TrackInfoResponse) {}
+    rpc GetTrackProcessors (TrackIdentifier) returns (ProcessorInfoListResponse) {}
+    rpc GetProcessorId (GenericStringValue) returns (ProcessorIdentifierResponse) {}
+    rpc GetProcessorInfo (ProcessorIdentifier) returns (ProcessorInfoResponse) {}
+    rpc GetProcessorBypassState (ProcessorIdentifier) returns (BoolResponse) {}
+    rpc GetProcessorState (ProcessorIdentifier) returns (ProcessorStateResponse) {}
 
-    rpc SetProcessorBypassState (ProcessorBypassStateSetRequest) returns (GenericVoidValue) {}
-    rpc SetProcessorState (ProcessorStateSetRequest) returns (GenericVoidValue) {}
+    rpc SetProcessorBypassState (ProcessorBypassStateSetRequest) returns (CommandResponse) {}
+    rpc SetProcessorState (ProcessorStateSetRequest) returns (CommandResponse) {}
 
-    rpc CreateTrack (CreateTrackRequest) returns (GenericVoidValue) {}
-    rpc CreateMultibusTrack (CreateMultibusTrackRequest) returns (GenericVoidValue) {}
-    rpc CreatePreTrack (CreatePreTrackRequest) returns (GenericVoidValue) {}
-    rpc CreatePostTrack (CreatePostTrackRequest) returns (GenericVoidValue) {}
-    rpc CreateProcessorOnTrack (CreateProcessorRequest) returns (GenericVoidValue) {}
-    rpc MoveProcessorOnTrack (MoveProcessorRequest) returns (GenericVoidValue) {}
+    rpc CreateTrack (CreateTrackRequest) returns (CommandResponse) {}
+    rpc CreateMultibusTrack (CreateMultibusTrackRequest) returns (CommandResponse) {}
+    rpc CreatePreTrack (CreatePreTrackRequest) returns (CommandResponse) {}
+    rpc CreatePostTrack (CreatePostTrackRequest) returns (CommandResponse) {}
+    rpc CreateProcessorOnTrack (CreateProcessorRequest) returns (CommandResponse) {}
+    rpc MoveProcessorOnTrack (MoveProcessorRequest) returns (CommandResponse) {}
 
-    rpc DeleteProcessorFromTrack (DeleteProcessorRequest) returns (GenericVoidValue) {}
-    rpc DeleteTrack (TrackIdentifier) returns (GenericVoidValue) {}
+    rpc DeleteProcessorFromTrack (DeleteProcessorRequest) returns (CommandResponse) {}
+    rpc DeleteTrack (TrackIdentifier) returns (CommandResponse) {}
 }
 
 service ProgramController
 {
-    rpc GetProcessorCurrentProgram (ProcessorIdentifier) returns (ProgramIdentifier) {}
-    rpc GetProcessorCurrentProgramName (ProcessorIdentifier) returns (GenericStringValue) {}
-    rpc GetProcessorProgramName (ProcessorProgramIdentifier) returns (GenericStringValue) {}
-    rpc GetProcessorPrograms (ProcessorIdentifier) returns (ProgramInfoList) {}
+    rpc GetProcessorCurrentProgram (ProcessorIdentifier) returns (ProgramIdentifierResponse) {}
+    rpc GetProcessorCurrentProgramName (ProcessorIdentifier) returns (StringResponse) {}
+    rpc GetProcessorProgramName (ProcessorProgramIdentifier) returns (StringResponse) {}
+    rpc GetProcessorPrograms (ProcessorIdentifier) returns (ProgramInfoListResponse) {}
 
-    rpc SetProcessorProgram (ProcessorProgramSetRequest) returns (GenericVoidValue) {}
+    rpc SetProcessorProgram (ProcessorProgramSetRequest) returns (CommandResponse) {}
 }
 
 service ParameterController
 {
-    rpc GetTrackParameters (TrackIdentifier) returns (ParameterInfoList) {}
-    rpc GetProcessorParameters (ProcessorIdentifier) returns (ParameterInfoList) {}
-    rpc GetParameterId (ParameterIdRequest) returns (ParameterIdentifier) {}
-    rpc GetParameterInfo (ParameterIdentifier) returns (ParameterInfo) {}
-    rpc GetParameterValue (ParameterIdentifier) returns (GenericFloatValue) {}
-    rpc GetParameterValueInDomain (ParameterIdentifier) returns (GenericFloatValue) {}
-    rpc GetParameterValueAsString (ParameterIdentifier) returns (GenericStringValue) {}
-    rpc SetParameterValue (ParameterValue) returns (GenericVoidValue) {}
+    rpc GetTrackParameters (TrackIdentifier) returns (ParameterInfoListResponse) {}
+    rpc GetProcessorParameters (ProcessorIdentifier) returns (ParameterInfoListResponse) {}
+    rpc GetParameterId (ParameterIdRequest) returns (ParameterIdentifierResponse) {}
+    rpc GetParameterInfo (ParameterIdentifier) returns (ParameterInfoResponse) {}
+    rpc GetParameterValue (ParameterIdentifier) returns (FloatResponse) {}
+    rpc GetParameterValueInDomain (ParameterIdentifier) returns (FloatResponse) {}
+    rpc GetParameterValueAsString (ParameterIdentifier) returns (StringResponse) {}
+    rpc SetParameterValue (ParameterValue) returns (CommandResponse) {}
 
-    rpc GetTrackProperties (TrackIdentifier) returns (PropertyInfoList) {}
-    rpc GetProcessorProperties (ProcessorIdentifier) returns (PropertyInfoList) {}
-    rpc GetPropertyId (PropertyIdRequest) returns (PropertyIdentifier) {}
-    rpc GetPropertyInfo (PropertyIdentifier) returns (PropertyInfo) {}
-    rpc GetPropertyValue (PropertyIdentifier) returns (GenericStringValue) {}
-    rpc SetPropertyValue (PropertyValue) returns (GenericVoidValue) {}
+    rpc GetTrackProperties (TrackIdentifier) returns (PropertyInfoListResponse) {}
+    rpc GetProcessorProperties (ProcessorIdentifier) returns (PropertyInfoListResponse) {}
+    rpc GetPropertyId (PropertyIdRequest) returns (PropertyIdentifierResponse) {}
+    rpc GetPropertyInfo (PropertyIdentifier) returns (PropertyInfoResponse) {}
+    rpc GetPropertyValue (PropertyIdentifier) returns (StringResponse) {}
+    rpc SetPropertyValue (PropertyValue) returns (CommandResponse) {}
 }
 
 service MidiController
@@ -118,40 +118,40 @@ service MidiController
     rpc GetAllKbdOutputConnections (GenericVoidValue) returns (MidiKbdConnectionList) {}
     rpc GetAllCCInputConnections (GenericVoidValue) returns (MidiCCConnectionList) {}
     rpc GetAllPCInputConnections (GenericVoidValue) returns (MidiPCConnectionList) {}
-    rpc GetCCInputConnectionsForProcessor (ProcessorIdentifier) returns (MidiCCConnectionList) {}
-    rpc GetPCInputConnectionsForProcessor (ProcessorIdentifier) returns (MidiPCConnectionList) {}
+    rpc GetCCInputConnectionsForProcessor (ProcessorIdentifier) returns (MidiCCConnectionListResponse) {}
+    rpc GetPCInputConnectionsForProcessor (ProcessorIdentifier) returns (MidiPCConnectionListResponse) {}
 
     rpc GetMidiClockOutputEnabled (GenericIntValue) returns (GenericBoolValue) {}
-    rpc SetMidiClockOutputEnabled (MidiClockSetRequest) returns (GenericVoidValue) {}
+    rpc SetMidiClockOutputEnabled (MidiClockSetRequest) returns (CommandResponse) {}
 
-    rpc ConnectKbdInputToTrack (MidiKbdConnection) returns (GenericVoidValue) {}
-    rpc ConnectKbdOutputFromTrack (MidiKbdConnection) returns (GenericVoidValue) {}
-    rpc ConnectCCToParameter (MidiCCConnection) returns (GenericVoidValue) {}
-    rpc ConnectPCToProcessor (MidiPCConnection) returns (GenericVoidValue) {}
+    rpc ConnectKbdInputToTrack (MidiKbdConnection) returns (CommandResponse) {}
+    rpc ConnectKbdOutputFromTrack (MidiKbdConnection) returns (CommandResponse) {}
+    rpc ConnectCCToParameter (MidiCCConnection) returns (CommandResponse) {}
+    rpc ConnectPCToProcessor (MidiPCConnection) returns (CommandResponse) {}
 
-    rpc DisconnectKbdInput (MidiKbdConnection) returns (GenericVoidValue) {}
-    rpc DisconnectKbdOutput (MidiKbdConnection) returns (GenericVoidValue) {}
-    rpc DisconnectCC (MidiCCConnection) returns (GenericVoidValue) {}
-    rpc DisconnectPC (MidiPCConnection) returns (GenericVoidValue) {}
-    rpc DisconnectAllCCFromProcessor (ProcessorIdentifier) returns (GenericVoidValue) {}
-    rpc DisconnectAllPCFromProcessor (ProcessorIdentifier) returns (GenericVoidValue) {}
+    rpc DisconnectKbdInput (MidiKbdConnection) returns (CommandResponse) {}
+    rpc DisconnectKbdOutput (MidiKbdConnection) returns (CommandResponse) {}
+    rpc DisconnectCC (MidiCCConnection) returns (CommandResponse) {}
+    rpc DisconnectPC (MidiPCConnection) returns (CommandResponse) {}
+    rpc DisconnectAllCCFromProcessor (ProcessorIdentifier) returns (CommandResponse) {}
+    rpc DisconnectAllPCFromProcessor (ProcessorIdentifier) returns (CommandResponse) {}
 }
 
 service AudioRoutingController
 {
     rpc GetAllInputConnections (GenericVoidValue) returns (AudioConnectionList) {}
     rpc GetAllOutputConnections (GenericVoidValue) returns (AudioConnectionList) {}
-    rpc GetInputConnectionsForTrack (TrackIdentifier) returns (AudioConnectionList) {}
-    rpc GetOutputConnectionsForTrack (TrackIdentifier) returns (AudioConnectionList) {}
+    rpc GetInputConnectionsForTrack (TrackIdentifier) returns (AudioConnectionListResponse) {}
+    rpc GetOutputConnectionsForTrack (TrackIdentifier) returns (AudioConnectionListResponse) {}
 
-    rpc ConnectInputChannelToTrack (AudioConnection) returns (GenericVoidValue) {}
-    rpc ConnectOutputChannelFromTrack (AudioConnection) returns (GenericVoidValue) {}
+    rpc ConnectInputChannelToTrack (AudioConnection) returns (CommandResponse) {}
+    rpc ConnectOutputChannelFromTrack (AudioConnection) returns (CommandResponse) {}
 
-    rpc DisconnectInput (AudioConnection) returns (GenericVoidValue) {}
-    rpc DisconnectOutput (AudioConnection) returns (GenericVoidValue) {}
-    rpc DisconnectAllInputsFromTrack (TrackIdentifier) returns (GenericVoidValue) {}
+    rpc DisconnectInput (AudioConnection) returns (CommandResponse) {}
+    rpc DisconnectOutput (AudioConnection) returns (CommandResponse) {}
+    rpc DisconnectAllInputsFromTrack (TrackIdentifier) returns (CommandResponse) {}
     rpc DisconnectAllOutputFromTrack (TrackIdentifier) returns (GenericVoidValue) {option deprecated = true;}
-    rpc DisconnectAllOutputsFromTrack (TrackIdentifier) returns (GenericVoidValue) {}
+    rpc DisconnectAllOutputsFromTrack (TrackIdentifier) returns (CommandResponse) {}
 }
 
 service CvGateController
@@ -163,24 +163,24 @@ service CvGateController
     rpc GetAllCvOutputConnections (GenericVoidValue) returns (CvConnectionList) {}
     rpc GetAllGateInputConnections (GenericVoidValue) returns (GateConnectionList) {}
     rpc GetAllGateOutputConnections (GenericVoidValue) returns (GateConnectionList) {}
-    rpc GetCvInputConnectionsForProcessor (ProcessorIdentifier) returns (CvConnectionList) {}
-    rpc GetCvOutputConnectionsForProcessor (ProcessorIdentifier) returns (CvConnectionList) {}
-    rpc GetGateInputConnectionsForProcessor (ProcessorIdentifier) returns (GateConnectionList) {}
-    rpc GetGateOutputConnectionsForProcessor (ProcessorIdentifier) returns (GateConnectionList) {}
+    rpc GetCvInputConnectionsForProcessor (ProcessorIdentifier) returns (CvConnectionListResponse) {}
+    rpc GetCvOutputConnectionsForProcessor (ProcessorIdentifier) returns (CvConnectionListResponse) {}
+    rpc GetGateInputConnectionsForProcessor (ProcessorIdentifier) returns (GateConnectionListResponse) {}
+    rpc GetGateOutputConnectionsForProcessor (ProcessorIdentifier) returns (GateConnectionListResponse) {}
 
-    rpc ConnectCvInputToParameter (CvConnection) returns (GenericVoidValue) {}
-    rpc ConnectCvOutputFromParameter (CvConnection) returns (GenericVoidValue) {}
-    rpc ConnectGateInputToProcessor (GateConnection) returns (GenericVoidValue) {}
-    rpc ConnectGateOutputFromProcessor (GateConnection) returns (GenericVoidValue) {}
+    rpc ConnectCvInputToParameter (CvConnection) returns (CommandResponse) {}
+    rpc ConnectCvOutputFromParameter (CvConnection) returns (CommandResponse) {}
+    rpc ConnectGateInputToProcessor (GateConnection) returns (CommandResponse) {}
+    rpc ConnectGateOutputFromProcessor (GateConnection) returns (CommandResponse) {}
 
-    rpc DisconnectCvInput (CvConnection) returns (GenericVoidValue) {}
-    rpc DisconnectCvOutput (CvConnection) returns (GenericVoidValue) {}
-    rpc DisconnectGateInput (GateConnection) returns (GenericVoidValue) {}
-    rpc DisconnectGateOutput (GateConnection) returns (GenericVoidValue) {}
-    rpc DisconnectAllCvInputsFromProcessor (ProcessorIdentifier) returns (GenericVoidValue) {}
-    rpc DisconnectAllCvOutputsFromProcessor (ProcessorIdentifier) returns (GenericVoidValue) {}
-    rpc DisconnectAllGateInputsFromProcessor (ProcessorIdentifier) returns (GenericVoidValue) {}
-    rpc DisconnectAllGateOutputsFromProcessor (ProcessorIdentifier) returns (GenericVoidValue) {}
+    rpc DisconnectCvInput (CvConnection) returns (CommandResponse) {}
+    rpc DisconnectCvOutput (CvConnection) returns (CommandResponse) {}
+    rpc DisconnectGateInput (GateConnection) returns (CommandResponse) {}
+    rpc DisconnectGateOutput (GateConnection) returns (CommandResponse) {}
+    rpc DisconnectAllCvInputsFromProcessor (ProcessorIdentifier) returns (CommandResponse) {}
+    rpc DisconnectAllCvOutputsFromProcessor (ProcessorIdentifier) returns (CommandResponse) {}
+    rpc DisconnectAllGateInputsFromProcessor (ProcessorIdentifier) returns (CommandResponse) {}
+    rpc DisconnectAllGateOutputsFromProcessor (ProcessorIdentifier) returns (CommandResponse) {}
 }
 
 service OscController
@@ -189,16 +189,16 @@ service OscController
     rpc GetSendPort (GenericVoidValue) returns (GenericIntValue) {}
     rpc GetReceivePort (GenericVoidValue) returns (GenericIntValue) {}
     rpc GetEnabledParameterOutputs (GenericVoidValue) returns (OscParameterOutputList) {}
-    rpc EnableOutputForParameter (ParameterIdentifier) returns (GenericVoidValue) {}
-    rpc DisableOutputForParameter (ParameterIdentifier) returns (GenericVoidValue) {}
-    rpc EnableAllOutput (GenericVoidValue) returns (GenericVoidValue) {}
-    rpc DisableAllOutput (GenericVoidValue) returns (GenericVoidValue) {}
+    rpc EnableOutputForParameter (ParameterIdentifier) returns (CommandResponse) {}
+    rpc DisableOutputForParameter (ParameterIdentifier) returns (CommandResponse) {}
+    rpc EnableAllOutput (GenericVoidValue) returns (CommandResponse) {}
+    rpc DisableAllOutput (GenericVoidValue) returns (CommandResponse) {}
 }
 
 service SessionController
 {
     rpc SaveSession (GenericVoidValue) returns (SessionState) {}
-    rpc RestoreSession (SessionState) returns (GenericVoidValue) {}
+    rpc RestoreSession (SessionState) returns (CommandResponse) {}
 }
 
 service NotificationController
@@ -209,6 +209,7 @@ service NotificationController
     rpc SubscribeToProcessorChanges (GenericVoidValue) returns (stream ProcessorUpdate) {}
     rpc SubscribeToParameterUpdates (ParameterNotificationBlocklist) returns (stream ParameterUpdate) {}
     rpc SubscribeToPropertyUpdates (PropertyNotificationBlocklist) returns (stream PropertyValue) {}
+    rpc SubscribeToAsyncCommandUpdates (GenericVoidValue) returns (stream AsyncCommandResponse) {}
 }
 
 /**
@@ -245,6 +246,30 @@ message GenericStringValue
     string value = 1;
 }
 
+message FloatResponse
+{
+    CommandStatus status = 1;
+    float value = 2;
+}
+
+message IntResponse
+{
+    CommandStatus status = 1;
+    int32 value = 2;
+}
+
+message BoolResponse
+{
+    CommandStatus status = 1;
+    bool value = 2;
+}
+
+message StringResponse
+{
+    CommandStatus status = 1;
+    string value = 2;
+}
+
 message OptionalBoolValue
 {
     bool has_value = 1;
@@ -258,6 +283,34 @@ message OptionalIntValue
 }
 
 /* Common types */
+
+message CommandStatus
+{
+    enum Status
+    {
+        DUMMY = 0;
+        SUCCESS = 1;
+        ASYNC_RESPONSE = 2;
+        ERROR = 3;
+        UNSUPPORTED_OPERATION = 4;
+        NOT_FOUND = 5;
+        OUT_OF_RANGE = 6;
+        INVALID_ARGUMENTS = 7;
+    }
+    Status status = 1;
+}
+
+message CommandResponse
+{
+    CommandStatus status = 1;
+    int32 id = 2;
+}
+
+message AsyncCommandResponse
+{
+    CommandStatus status = 1;
+    int32 request_id = 2;
+}
 
 message SushiBuildInfo
 {
@@ -273,9 +326,21 @@ message TrackIdentifier
     int32 id = 1;
 }
 
+message TrackIdentifierResponse
+{
+    CommandStatus status = 1;
+    int32 id = 2;
+}
+
 message ProcessorIdentifier
 {
     int32 id = 1;
+}
+
+message ProcessorIdentifierResponse
+{
+    CommandStatus status = 1;
+    int32 id = 2;
 }
 
 message ParameterIdentifier
@@ -284,10 +349,22 @@ message ParameterIdentifier
     int32 parameter_id = 2;
 }
 
+message ParameterIdentifierResponse
+{
+    CommandStatus status = 1;
+    ParameterIdentifier id = 2;
+}
+
 message PropertyIdentifier
 {
     int32 processor_id = 1;
     int32 property_id = 2;
+}
+
+message PropertyIdentifierResponse
+{
+    CommandStatus status = 1;
+    PropertyIdentifier id = 2;
 }
 
 /* 0 is reserved for "not set" in protobuf, so we don't use it for a valid response */
@@ -348,6 +425,12 @@ message CpuTimings
     repeated Timings threads = 2;
 }
 
+message TimingResponse
+{
+    CommandStatus status = 1;
+    Timings timings = 2;
+}
+
 message NoteOnRequest
 {
     TrackIdentifier track = 1;
@@ -403,6 +486,12 @@ message TrackInfo
     repeated ProcessorIdentifier processors = 8;
 }
 
+message TrackInfoResponse
+{
+    CommandStatus status = 1;
+    TrackInfo info = 2;
+}
+
 message TrackInfoList
 {
     repeated TrackInfo tracks = 1;
@@ -417,14 +506,32 @@ message ProcessorInfo
     int32  program_count = 5;
 }
 
+message ProcessorInfoResponse
+{
+    CommandStatus status = 1;
+    ProcessorInfo processor = 2;
+}
+
 message ProcessorInfoList
 {
     repeated ProcessorInfo processors = 1;
 }
 
+message ProcessorInfoListResponse
+{
+    CommandStatus status = 1;
+    repeated ProcessorInfo processors = 2;
+}
+
 message ProgramIdentifier
 {
     int32 program = 1;
+}
+
+message ProgramIdentifierResponse
+{
+    CommandStatus status = 1;
+    int32 program = 2;
 }
 
 message ProcessorProgramIdentifier
@@ -442,6 +549,12 @@ message ProgramInfo
 message ProgramInfoList
 {
     repeated ProgramInfo programs = 1;
+}
+
+message ProgramInfoListResponse
+{
+    CommandStatus status = 1;
+    repeated ProgramInfo programs = 2;
 }
 
 message ProcessorProgramSetRequest
@@ -465,6 +578,12 @@ message ProcessorState
     bytes                   binary_data = 5;
 }
 
+message ProcessorStateResponse
+{
+    CommandStatus status = 1;
+    ProcessorState state = 2;
+}
+
 message ProcessorStateSetRequest
 {
     ProcessorIdentifier processor = 1;
@@ -483,9 +602,21 @@ message ParameterInfo
     float max_domain_value = 8;
 }
 
+message ParameterInfoResponse
+{
+    CommandStatus status = 1;
+    ParameterInfo info = 2;
+}
+
 message ParameterInfoList
 {
     repeated ParameterInfo parameters = 1;
+}
+
+message ParameterInfoListResponse
+{
+    CommandStatus status = 1;
+    repeated ParameterInfo parameters = 2;
 }
 
 message ParameterIdRequest
@@ -515,9 +646,21 @@ message PropertyInfo
     string label = 3;
 }
 
+message PropertyInfoResponse
+{
+    CommandStatus status = 1;
+    PropertyInfo info = 2;
+}
+
 message PropertyInfoList
 {
     repeated PropertyInfo properties = 1;
+}
+
+message PropertyInfoListResponse
+{
+    CommandStatus status = 1;
+    repeated PropertyInfo properties = 2;
 }
 
 message PropertyValue
@@ -647,6 +790,12 @@ message AudioConnectionList
     repeated AudioConnection connections = 1;
 }
 
+message AudioConnectionListResponse
+{
+    CommandStatus status = 1;
+    repeated AudioConnection connections = 2;
+}
+
 message CvConnection
 {
     ParameterIdentifier parameter = 1;
@@ -656,6 +805,12 @@ message CvConnection
 message CvConnectionList
 {
     repeated CvConnection connections = 1;
+}
+
+message CvConnectionListResponse
+{
+    CommandStatus status = 1;
+    repeated CvConnection connections = 2;
 }
 
 message GateConnection
@@ -669,6 +824,12 @@ message GateConnection
 message GateConnectionList
 {
     repeated GateConnection connections = 1;
+}
+
+message GateConnectionListResponse
+{
+    CommandStatus status = 1;
+    repeated GateConnection connections = 2;
 }
 
 message MidiKbdConnection
@@ -700,6 +861,12 @@ message MidiCCConnectionList
     repeated MidiCCConnection connections = 1;
 }
 
+message MidiCCConnectionListResponse
+{
+    CommandStatus status = 1;
+    repeated MidiCCConnection connections = 2;
+}
+
 message MidiPCConnection
 {
     ProcessorIdentifier processor = 1;
@@ -710,6 +877,12 @@ message MidiPCConnection
 message MidiPCConnectionList
 {
     repeated MidiPCConnection connections = 1;
+}
+
+message MidiPCConnectionListResponse
+{
+    CommandStatus status = 1;
+    repeated MidiPCConnection connections = 2;
 }
 
 message MidiClockSetRequest
